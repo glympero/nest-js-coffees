@@ -9,6 +9,9 @@ async function bootstrap() {
       whitelist: true,
       transform: true, // transform payloads to dto
       forbidNonWhitelisted: true,
+      transformOptions: {
+        enableImplicitConversion: true, //converts for example string to number in pagination (string url params to numbers)
+      },
     }),
   );
   await app.listen(3000);

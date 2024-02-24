@@ -1,3 +1,8 @@
+## docker
+
+- start: docker-compose up -d
+- stop: docker-compose down
+
 ## Decorators
 
 - functions that apply logic
@@ -11,3 +16,7 @@
 ## Services
 
 - Services are providers. The main idea of a provider is that it can inject "dependencies"
+
+## Repository design pattern
+
+- Each entity has its own repository

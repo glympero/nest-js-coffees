@@ -14,21 +14,19 @@ import {
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 
 @Controller('coffees')
 export class CoffeesController {
   constructor(private readonly coffeesService: CoffeesService) {}
 
   @Get()
-  findAll(@Query() paginationQuery) {
-    const { limit = 10, offset = 0 } = paginationQuery;
-    console.log('limit', limit);
-    console.log('offset', offset);
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
     // @Res() response
     //@Res gives access to the native response object from node
     // response.status(200).send('this is the coffees get request - node native');
     // return `this is the coffees get request. Limit: ${limit}. Offset: ${offset}`;
-    return this.coffeesService.findAll();
+    return this.coffeesService.findAll(paginationQuery);
   }
   @Get(':id')
   findOne(@Param('id') id: number) {
