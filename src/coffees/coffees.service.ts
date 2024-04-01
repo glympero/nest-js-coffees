@@ -1,4 +1,5 @@
 import {
+  Inject,
   // HttpException,
   // HttpStatus,
   Injectable,
@@ -12,6 +13,11 @@ import { UpdateCoffeeDto } from './dto/update-coffee.dto';
 import { Flavor } from './entities/flavor.entity';
 import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto';
 import { Event } from 'src/events/entities/event.entity';
+import coffeesConfig from './config/coffees.config';
+import { COFFEE_BRANDS } from './coffees.constants';
+import { ConfigType } from '@nestjs/config';
+// import { COFFEE_BRANDS } from './coffees.constants';
+// import { ConfigService } from '@nestjs/config';
 
 @Injectable()
 export class CoffeesService {
@@ -21,7 +27,21 @@ export class CoffeesService {
     @InjectRepository(Flavor)
     private readonly flavorRepository: Repository<Flavor>,
     private readonly dataSource: DataSource,
-  ) {}
+    @Inject(coffeesConfig.KEY)
+    private coffeesConfiguration: ConfigType<typeof coffeesConfig>,
+    @Inject(COFFEE_BRANDS) coffeeBrands: string[],
+    // private readonly configService: ConfigService,
+    //
+  ) {
+    // const databaseHost = this.configService.get<string>('DATABASE_HOST');
+    // const databaseHost1 = this.configService.get('database.host');
+    // const coffeesConfig = this.configService.get('coffees');
+    // console.log(databaseHost);
+    // console.log(databaseHost1);
+    // console.log(coffeesConfig);
+    console.log(coffeesConfiguration.foo);
+    console.log(coffeeBrands);
+  }
 
   findAll(paginationQuery: PaginationQueryDto) {
     const { limit = 10, offset = 0 } = paginationQuery;
